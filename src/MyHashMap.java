@@ -37,8 +37,8 @@ public class MyHashMap<K, V> implements DefaultMap<K, V> {
             this.capacity = initialCapacity;
             this.myComparator = myComparator;
             this.size = 0;
-            buckets = new ArrayList<>();
-            this.sections =  new Character[initialCapacity];
+            buckets = new ArrayList<>(capacity);
+            this.sections =  new Character[capacity];
             
         }
 
@@ -91,7 +91,7 @@ public class MyHashMap<K, V> implements DefaultMap<K, V> {
                 throw new IllegalArgumentException(ILLEGAL_ARG_NULL_KEY);
             }
             for (Character section:sections) {
-                if (section.equals((Character) key)) {
+                if (section != null && section.equals((Character) key)) {
                     return true;
                 }
             }

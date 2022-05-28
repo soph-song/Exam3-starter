@@ -24,7 +24,7 @@ public class FileReader  {
 		FileInputStream input = new FileInputStream(filename);
 		Scanner sc = new Scanner(input);
 		while (sc.hasNextLine()) {
-			String[] data = sc.nextLine().split(", ");
+			String[] data = sc.nextLine().split(",");
 			Character section = data[1].charAt(0);
 			String name = data[0];
 			double marks = Double.parseDouble(data[2]);
