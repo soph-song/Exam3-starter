@@ -34,9 +34,12 @@ public class MyHashMapTest {
 	@Test 
 	public void testcase1() throws FileNotFoundException{
 		setUp();
-		Character section = "A".charAt(0);
-		Student maxofA = filereader.getMaxOfSection(section);
-		System.out.print(maxofA.name);
+		Character sectionA = "A".charAt(0);
+		Student maxofA = filereader.getMaxOfSection(sectionA);
+		assertEquals("James",maxofA.name);
+		Character sectionB = "B".charAt(0);
+		Student maxofB = filereader.getMaxOfSection(sectionB);
+		assertEquals("Ria",maxofB.name);
 	}
 
 	
