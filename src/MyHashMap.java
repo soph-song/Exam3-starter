@@ -29,7 +29,7 @@ public class MyHashMap<K, V> implements DefaultMap<K, V> {
         this(DEFAULT_INITIAL_CAPACITY, null);}
 
     @SuppressWarnings("unchecked")
-        public MyHashMap(int initialCapacity, Comparator myComparator)
+    public MyHashMap(int initialCapacity, Comparator myComparator)
             throws IllegalArgumentException {
             if (initialCapacity < 0  ) {
 			throw new IllegalArgumentException(ILLEGAL_ARG_CAPACITY);
@@ -48,7 +48,7 @@ public class MyHashMap<K, V> implements DefaultMap<K, V> {
         }
 
     @Override
-        public boolean put(K key, V value) throws IllegalArgumentException {
+    public boolean put(K key, V value) throws IllegalArgumentException {
 
            //Method to add the key value pair to the hashMap
            if (key == null) {
@@ -69,7 +69,7 @@ public class MyHashMap<K, V> implements DefaultMap<K, V> {
 
 
     @Override
-        public V get(K key) throws IllegalArgumentException {
+    public V get(K key) throws IllegalArgumentException {
             //Method to get the value of given key
             if (key == null) {
                 throw new IllegalArgumentException(ILLEGAL_ARG_NULL_KEY);
@@ -84,7 +84,7 @@ public class MyHashMap<K, V> implements DefaultMap<K, V> {
         }
 
     @Override
-        public boolean containsKey(K key) throws IllegalArgumentException {
+    public boolean containsKey(K key) throws IllegalArgumentException {
             //Method to check if key is present
             if (key == null) {
                 throw new IllegalArgumentException(ILLEGAL_ARG_NULL_KEY);
@@ -98,15 +98,15 @@ public class MyHashMap<K, V> implements DefaultMap<K, V> {
         }
 
     @Override
-        public int size() {
-            return size;
+    public int size() {
+            return this.size;
         }
 
     @Override
-        public boolean isEmpty() {
-            //Method to check if hashMap is empty
-            return size == 0;
-        }
+    public boolean isEmpty() {
+        //Method to check if hashMap is empty
+        return this.size == 0;
+    }
 
     protected static class HashMapEntry<K, V> implements DefaultMap.Entry<K, V> {
 
