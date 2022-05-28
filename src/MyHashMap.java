@@ -30,37 +30,83 @@ public class MyHashMap<K, V> implements DefaultMap<K, V> {
     @SuppressWarnings("unchecked")
         public MyHashMap(int initialCapacity, Comparator myComparator)
             throws IllegalArgumentException {
-
+            if (initialCapacity < 0  ) {
+			throw new IllegalArgumentException(ILLEGAL_ARG_CAPACITY);
+		    }
             //constrcutor for the hashMap
+            this.capacity = initialCapacity;
+            this.myComparator = myComparator;
+            this.size = 0;
+            buckets = new ArrayList<>();
+            this.sections =  new Character[initialCapacity];
+            
         }
 
     @Override
         public boolean put(K key, V value) throws IllegalArgumentException {
 
            //Method to add the key value pair to the hashMap
-        }
+           if (key == null) {
+			throw new IllegalArgumentException(ILLEGAL_ARG_NULL_KEY);
+		    }
+            int keyHash = Objects.hashCode(key); 
+            int index = Math.abs(keyHash % capacity);
+            if (!containsKey(key)) {
+                for (Character section : sections) {
+                    if (section == null) {
+                        section = (Character) key;
+                        break;
+                    }
+                }
+            }
+  
+            buckets.get(index).add(key, value);
+            size+=1;
+            return true;
+
+	}
+        
 
 
 
     @Override
         public V get(K key) throws IllegalArgumentException {
-
             //Method to get the value of given key
+            if (key == null) {
+                throw new IllegalArgumentException(ILLEGAL_ARG_NULL_KEY);
+            }
+            int keyHash = Objects.hashCode(key); 
+            int index = Math.abs(keyHash % capacity);
+
+           return buckets.get(index).peek().value;
+
+            
+
         }
 
     @Override
         public boolean containsKey(K key) throws IllegalArgumentException {
             //Method to check if key is present
+            if (key == null) {
+                throw new IllegalArgumentException(ILLEGAL_ARG_NULL_KEY);
+            }
+            for (Character section:sections) {
+                if (section.equals((Character) key)) {
+                    return true;
+                }
+            }
+            return false;
         }
 
     @Override
         public int size() {
-            //Method to get size of the hashMap
+            return size;
         }
 
     @Override
         public boolean isEmpty() {
             //Method to check if hashMap is empty
+            return size == 0;
         }
 
     protected static class HashMapEntry<K, V> implements DefaultMap.Entry<K, V> {
