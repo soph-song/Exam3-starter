@@ -2,6 +2,7 @@ import java.util.List;
 import java.util.Objects;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 
 public class MyHashMap<K, V> implements DefaultMap<K, V> {
@@ -39,7 +40,7 @@ public class MyHashMap<K, V> implements DefaultMap<K, V> {
             this.size = 0;
             buckets = new ArrayList<>();
             for (int i = 0; i < capacity; ++i) {
-                MaxHeap bucket = new MaxHeap<>(capacity, myComparator);
+                MaxHeap bucket = new MaxHeap<>(capacity, this.myComparator);
                 buckets.add(bucket);
             }
             this.sections =  new Character[capacity];
@@ -55,15 +56,8 @@ public class MyHashMap<K, V> implements DefaultMap<K, V> {
 		    }
             int keyHash = Objects.hashCode(key); 
             int index = Math.abs(keyHash % capacity);
-            if (!containsKey(key)) {
-                //Update sections array
-                for (Character section : sections) {
-                    if (section == null) {
-                        section = (Character) key;
-                        break;
-                    }
-                }
-            }
+
+            sections[index] = (Character) key;
   
             buckets.get(index).add(key, value);
             size+=1;
@@ -95,10 +89,10 @@ public class MyHashMap<K, V> implements DefaultMap<K, V> {
             if (key == null) {
                 throw new IllegalArgumentException(ILLEGAL_ARG_NULL_KEY);
             }
-            for (Character section:sections) {
-                if (section != null && section.equals((Character) key)) {
-                    return true;
-                }
+            int keyHash = Objects.hashCode(key); 
+            int index = Math.abs(keyHash % capacity);
+            if (sections[index].equals((Character) key)) {
+                return true;
             }
             return false;
         }

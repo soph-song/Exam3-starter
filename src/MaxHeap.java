@@ -17,23 +17,24 @@ Comparator comparator;
        
     }
 	//helper swap method
-	private void swap(HeapEntry<K, V> x, HeapEntry<K, V> y) {
-		HeapEntry<K, V> temp = x;
-		x = y;
-		y = temp;
+	private void swap(int index, int parentIndex) {
+		HeapEntry<K,V> temp;
+		temp = entries.get(index);
+		entries.set(index,entries.get(parentIndex));
+		entries.set(parentIndex,temp);
 	}
 	//helper bubble up
-	private void bubbleUp(HeapEntry<K,V> entry) {
-		int index = entries.indexOf(entry);
-		int ParentIndex = (index-1)/2;
+	private void bubbleUp(int index) {
 		if (index <= 0) {
 			return;
 		}
+		int ParentIndex = (index-1)/2;
+		HeapEntry<K,V> entry = entries.get(index);
 		HeapEntry<K,V> parent = entries.get(ParentIndex);
-		int comp = this.comparator.compare(entry.getValue(),parent.getValue());
+		int comp = comparator.compare(entry.getValue(),parent.getValue());
 		if (comp > 0) {
-			swap(entry,parent);
-			bubbleUp(parent);
+			swap(index,ParentIndex);
+			bubbleUp(ParentIndex);
 		}
 		else {
 			return;
@@ -41,28 +42,27 @@ Comparator comparator;
 		
 	}
 	//helper bubbledown
-	private void bubbleDown(HeapEntry<K,V> entry) {
+	private void bubbleDown(int index) {
 		int Lastindex = entries.size()-1;
 		HeapEntry<K,V> lastEntry = entries.get(Lastindex);
-		swap(entry,lastEntry);
+		swap(index,Lastindex);
 		entries.remove(lastEntry);
 
-		int index = entries.indexOf(entry);
 		int LchildIndex = 2*index +1;
 		HeapEntry<K,V> leftchild = entries.get(LchildIndex);
 		int RchildIndex = 2*index +2;
 		HeapEntry<K,V> rightchild = entries.get(RchildIndex);
 
-		int comp = comparator.compare(leftchild.key,rightchild.key);
+		int comp = comparator.compare(leftchild.value,rightchild.value);
 		
 		while (comp != 0) {
 			if (comp > 0) {
-				swap(leftchild,entry);
-				bubbleDown(leftchild);
+				swap(LchildIndex,index);
+				bubbleDown(LchildIndex);
 			}
 			else if (comp < 0) {
-				swap(rightchild,entry);
-				bubbleDown(rightchild);
+				swap(RchildIndex,index);
+				bubbleDown(RchildIndex);
 			}
 		}
 		
@@ -71,7 +71,7 @@ Comparator comparator;
 
 	public void add(K key, V value){
 	    // Method to add the key value pair in the heap, remember to satisfy max heap Property
-		HeapEntry<K,V> entry = new HeapEntry(key, value);
+		HeapEntry<K,V> entry = new HeapEntry<K,V>(key, value);
 		if(entries.isEmpty()) {
 			entries.add(entry);
 			heapSize+=1;
@@ -79,7 +79,8 @@ Comparator comparator;
 
 		else if (!entries.isEmpty()){
 			entries.add(entry);
-			bubbleUp(entry);
+			int index = entries.indexOf(entry);
+			bubbleUp(index);
 			heapSize +=1;
 		}
 	}
@@ -101,7 +102,8 @@ Comparator comparator;
 			return null;
 		}
 		else {
-			bubbleDown(entries.get(0));
+
+			bubbleDown(0);
 		}
 		return max;
 	}
