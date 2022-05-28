@@ -7,6 +7,7 @@ public class CircularArrayList<T> implements ArrayListADT<T>{
 	int rear;
 	T[] arrayList;
 	
+	@SuppressWarnings("unchecked")
 	public CircularArrayList() {
 		//Fill in the constructor for the circularArrayList
 		this.capacity = 100;
@@ -17,6 +18,7 @@ public class CircularArrayList<T> implements ArrayListADT<T>{
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public CircularArrayList(int initialCapacity) {
 		//Fill in the constructor for the circularArrayList
 		this.capacity = initialCapacity;
@@ -28,6 +30,7 @@ public class CircularArrayList<T> implements ArrayListADT<T>{
 	}
 
 	//helper method expandCapacity
+	@SuppressWarnings("unchecked")
 	private void expandCapacity() {
 		// TODO Auto-generated method stub
 		 

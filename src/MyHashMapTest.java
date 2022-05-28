@@ -19,7 +19,6 @@ public class MyHashMapTest {
 	}
 
 
-
 	//Write testcase for checking max score of 2 sections
 
 	@Test 
