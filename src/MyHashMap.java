@@ -37,7 +37,11 @@ public class MyHashMap<K, V> implements DefaultMap<K, V> {
             this.capacity = initialCapacity;
             this.myComparator = myComparator;
             this.size = 0;
-            buckets = new ArrayList<>(capacity);
+            buckets = new ArrayList<>();
+            for (int i = 0; i < capacity; ++i) {
+                MaxHeap bucket = new MaxHeap<>(capacity, myComparator);
+                buckets.add(bucket);
+            }
             this.sections =  new Character[capacity];
             
         }
@@ -52,6 +56,7 @@ public class MyHashMap<K, V> implements DefaultMap<K, V> {
             int keyHash = Objects.hashCode(key); 
             int index = Math.abs(keyHash % capacity);
             if (!containsKey(key)) {
+                //Update sections array
                 for (Character section : sections) {
                     if (section == null) {
                         section = (Character) key;

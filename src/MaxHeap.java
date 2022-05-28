@@ -30,7 +30,7 @@ Comparator comparator;
 			return;
 		}
 		HeapEntry<K,V> parent = entries.get(ParentIndex);
-		int comp = this.comparator.compare(entry.key,parent.key);
+		int comp = this.comparator.compare(entry.getValue(),parent.getValue());
 		if (comp > 0) {
 			swap(entry,parent);
 			bubbleUp(parent);

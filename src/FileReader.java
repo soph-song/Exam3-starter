@@ -14,6 +14,24 @@ public class FileReader  {
 	public FileReader(String name)  {
 		// Constructor for the filereader
 		this.filename = name;
+		comparator = new Comparator<Student>() {
+			@Override
+			public int compare(Student s1, Student s2) {
+				double s1Mark = s1.marks;
+				double s2Mark = s2.marks;
+				int comp;
+				if (s1Mark > s2Mark) {
+					comp = 1;
+				}
+				else if (s1Mark <s2Mark) {
+					comp = -1;
+				}
+				else {
+					comp = 0;
+				}
+				return comp;
+			}
+		};
 		hashMap = new MyHashMap<>(10,this.comparator);
 		
 

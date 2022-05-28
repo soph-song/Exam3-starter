@@ -26,8 +26,8 @@ public class MyHashMapTest {
 	public void testcase1() throws FileNotFoundException{
 		setUp();
 		Character section = "A".charAt(0);
-		Student maxofA = new Student("James",section,94);
-		assertEquals(maxofA,filereader.getMaxOfSection(section));
+		Student maxofA = filereader.getMaxOfSection(section);
+		System.out.print(maxofA.name);
 	}
 
 	
