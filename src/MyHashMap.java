@@ -40,7 +40,7 @@ public class MyHashMap<K, V> implements DefaultMap<K, V> {
             this.size = 0;
             buckets = new ArrayList<>();
             for (int i = 0; i < capacity; ++i) {
-                MaxHeap bucket = new MaxHeap<>(capacity, this.myComparator);
+                MaxHeap<K,V> bucket = new MaxHeap<>(capacity, this.myComparator);
                 buckets.add(bucket);
             }
             this.sections =  new Character[capacity];

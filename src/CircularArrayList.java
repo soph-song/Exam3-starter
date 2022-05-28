@@ -14,6 +14,7 @@ public class CircularArrayList<T> implements ArrayListADT<T>{
 		this.front = 0;
 		this.rear = 0;
 		this.arrayList = (T[])(new Object[capacity]);
+		
 	}
 	
 	public CircularArrayList(int initialCapacity) {
@@ -23,6 +24,7 @@ public class CircularArrayList<T> implements ArrayListADT<T>{
 		this.front = 0;
 		this.rear = 0;
 		this.arrayList = (T[])(new Object[capacity]);
+		
 	}
 
 	//helper method expandCapacity
@@ -54,11 +56,11 @@ public class CircularArrayList<T> implements ArrayListADT<T>{
 	private int indexFor(int index) {
 	    int toReturn = (this.front + index) % this.arrayList.length;
 	    return toReturn;
-	}
-
+	  }
+	
+	
 	@Override
 	public void addRear(T element) {
-		//Method to add element at the rear of the arraylist
 		//Method to add element at the rear of the arraylist
 		if(this.size >= arrayList.length) {
 			expandCapacity();
@@ -76,9 +78,9 @@ public class CircularArrayList<T> implements ArrayListADT<T>{
 		}
 	}
 
+
 	@Override
 	public void addFront(T element) {
-		//Method to add element at the front of the arraylist i.e. towards start
 		//Method to add element at the front of the arraylist i.e. towards start
 		if(this.size >= arrayList.length) {
 			expandCapacity();
@@ -94,7 +96,6 @@ public class CircularArrayList<T> implements ArrayListADT<T>{
 			this.arrayList[this.front] = element;
 			//size++;
 		}
-		
 	}
 
 	public T get(int index) throws Exception {
@@ -110,8 +111,23 @@ public class CircularArrayList<T> implements ArrayListADT<T>{
 		
 		int toReturn = this.indexFor(index);
 		return this.arrayList[toReturn];
+		
 	}
 	
+	public void up(int index) {
+		int i = index -1;
+		for(int j = i; j > 0; j -= 1) {
+			this.arrayList[indexFor(j + 1)] = this.arrayList[indexFor(j)];
+		}
+	}
+	
+	
+	public void down(int index) {
+		int i = index;
+		for(int j = i; j < this.size; j += 1) {
+			this.arrayList[indexFor(j)] = this.arrayList[indexFor(j + 1)];
+		}
+	}
 
 
 	@Override
@@ -141,21 +157,7 @@ public class CircularArrayList<T> implements ArrayListADT<T>{
 			size--;
 			return toRemove;
 		}
-	}
-
-	public void up(int index) {
-		int i = index -1;
-		for(int j = i; j > 0; j -= 1) {
-			this.arrayList[indexFor(j + 1)] = this.arrayList[indexFor(j)];
-		}
-	}
-	
-	
-	public void down(int index) {
-		int i = index;
-		for(int j = i; j < this.size; j += 1) {
-			this.arrayList[indexFor(j)] = this.arrayList[indexFor(j + 1)];
-		}
+		
 	}
 	
 	@Override
@@ -176,6 +178,5 @@ public class CircularArrayList<T> implements ArrayListADT<T>{
 	public int getCapacity() {
 		return this.capacity;
 	}
-	
 	
 }
